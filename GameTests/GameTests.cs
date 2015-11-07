@@ -35,7 +35,7 @@ namespace GameTests
         public void TestingLessThanTwoNeighborsDies()
         {
             myGame game = new myGame();
-            Assert.AreEqual(false, game.caseOne());
+            Assert.AreEqual(false, game.caseOne(0, 0));
         }
 
         [TestMethod]

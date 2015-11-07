@@ -37,36 +37,38 @@ namespace ConwaysGameOfLife
             {
                 for (int j = 0; i < cells[i].Count(); j++)
                 {
-                 
+                    caseOne(i, j);
                 }
             }
             return neighbors;
         }
 
-        public bool caseOne()
+        public bool caseOne(int i, int j)
         {
             //Just manually checking the first cells neighbors to think about how I can build 
             //this to be done automatically
-            bool firstToCheck = cells[0][0];
-            bool rightNeighbor = cells[0][1];
-            bool rightCorner = cells[1][1];
-            bool bottomNeighbor = cells[1][0];
-            int numNeighborsAlive = 0;
-            List<bool> neighborsToCheck = new List<bool> { rightNeighbor, rightCorner, bottomNeighbor };
-            for (int i = 0; i < neighborsToCheck.Count(); i++)
-            {
-                if (neighborsToCheck[i])
-                {
-                    numNeighborsAlive++;
-                }
-            }
-            if (numNeighborsAlive < 2)
-            {
-                firstToCheck = true;
-            } else
-            {
-                firstToCheck = false;
-            }
+            bool firstToCheck = cells[i][j];
+            //Now can test this grids neighbors
+
+            //bool rightNeighbor = cells[0][1];
+            //bool rightCorner = cells[1][1];
+            //bool bottomNeighbor = cells[1][0];
+            //int numNeighborsAlive = 0;
+            //List<bool> neighborsToCheck = new List<bool> { rightNeighbor, rightCorner, bottomNeighbor };
+            //for (int i = 0; i < neighborsToCheck.Count(); i++)
+            //{
+            //    if (neighborsToCheck[i])
+            //    {
+            //        numNeighborsAlive++;
+            //    }
+            //}
+            //if (numNeighborsAlive < 2)
+            //{
+            //    firstToCheck = true;
+            //} else
+            //{
+            //    firstToCheck = false;
+            //}
             return firstToCheck;
         }   
 

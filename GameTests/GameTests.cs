@@ -32,18 +32,38 @@ namespace GameTests
         }
 
         [TestMethod]
-        public void TestingMyInitialCounter()
+        public void TestingLessThanTwoNeighborsDies()
         {
             myGame game = new myGame();
-            int expected = 2;
-            Assert.AreEqual(expected, game.Checker());
+            Assert.AreEqual(false, game.caseOne());
         }
 
         [TestMethod]
-        public void CreationOfCellsInstance()
+        public void TestingTwoOrThreeLiveNeighborsLivesOn()
         {
-            Cells cell = new Cells();
-            Assert.IsNotNull(cell);
+            myGame game = new myGame();
+            Assert.AreEqual(true, game.caseTwo());
+        }
+
+        [TestMethod]
+        public void TestingThreeOrMoreNeighborsDies()
+        {
+            myGame game = new myGame();
+            Assert.AreEqual(true, game.caseThree());
+        }
+
+        [TestMethod]
+        public void TestingExactlyThreeLiveNeighborsLives()
+        {
+            myGame game = new myGame();
+            Assert.AreEqual(false, game.caseFour());
+        }
+
+        [TestMethod]
+        public void TestingLoopThroughCells()   
+        {
+            myGame game = new myGame();
+            Assert.IsNotNull(game.LoopThroughCells());
         }
     }
 }

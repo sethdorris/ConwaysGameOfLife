@@ -17,7 +17,7 @@ namespace ConwaysGameOfLife
             row.Add(new List<bool>(new bool[] { false, true}));
             row.Add(new List<bool>(new bool[] { false, true}));
             cells = row;
-
+            Tick();
         }
 
         public int getIndex()
@@ -30,33 +30,70 @@ namespace ConwaysGameOfLife
             index = newIndex;
         }
 
-        public void Tick()
+        public List<bool> LoopThroughCells()
         {
-            while (index < 2)
+            List<bool> neighbors = new List<bool> { };
+            for (int i = 0; i < cells.Count(); i++)
             {
-                Checker();
-            }
-        }
-
-        public int Checker()
-        {
-            int counter = 0;
-            bool previousCell;
-            bool currentCell;
-            for (int i =0; i < cells.Count(); i++)
-            {
-                for (int j = 0; j < cells[i].Count(); j++)
+                for (int j = 0; i < cells[i].Count(); j++)
                 {
-                    currentCell = cells[i][j];
-                    previousCell = currentCell;
+                 
                 }
             }
-            return counter;
+            return neighbors;
+        }
+
+        public bool caseOne()
+        {
+            //Just manually checking the first cells neighbors to think about how I can build 
+            //this to be done automatically
+            bool firstToCheck = cells[0][0];
+            bool rightNeighbor = cells[0][1];
+            bool rightCorner = cells[1][1];
+            bool bottomNeighbor = cells[1][0];
+            int numNeighborsAlive = 0;
+            List<bool> neighborsToCheck = new List<bool> { rightNeighbor, rightCorner, bottomNeighbor };
+            for (int i = 0; i < neighborsToCheck.Count(); i++)
+            {
+                if (neighborsToCheck[i])
+                {
+                    numNeighborsAlive++;
+                }
+            }
+            if (numNeighborsAlive < 2)
+            {
+                firstToCheck = true;
+            } else
+            {
+                firstToCheck = false;
+            }
+            return firstToCheck;
+        }   
+
+        public bool caseTwo()
+        {
+            return false;
+        }
+
+        public bool caseThree()
+        {
+            return false;
+        }
+
+        public bool caseFour()
+        {
+            return true;
         }
 
         public List<List<bool>> ToList()
         {
             return cells;
         }
+
+        public void Tick()
+        {
+           
+        }
+
     }
 }

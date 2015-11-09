@@ -9,13 +9,14 @@ namespace ConwaysGameOfLife
    public class myGame : Board
     {
         private List<List<bool>> cells = new List<List<bool>>();
-        private int index = 0;
+        private int index = 10;
 
         public myGame()
         {
             List<List<bool>> row = new List<List<bool>>();
-            row.Add(new List<bool>(new bool[] { false, true}));
-            row.Add(new List<bool>(new bool[] { false, true}));
+            row.Add(new List<bool>(new bool[] { false, true, false}));
+            row.Add(new List<bool>(new bool[] { false, true, false}));
+            row.Add(new List<bool>(new bool[] { false, true, false}));
             cells = row;
             Tick();
         }
@@ -30,62 +31,133 @@ namespace ConwaysGameOfLife
             index = newIndex;
         }
 
-        public List<bool> LoopThroughCells()
+        public void LoopThroughCells()
         {
-            List<bool> neighbors = new List<bool> { };
             for (int i = 0; i < cells.Count(); i++)
             {
                 for (int j = 0; i < cells[i].Count(); j++)
                 {
-                    caseOne(i, j);
+                    cells[i][j] = caseOne(i, j);
                 }
             }
-            return neighbors;
         }
 
         public bool caseOne(int i, int j)
-        {
-            //Just manually checking the first cells neighbors to think about how I can build 
-            //this to be done automatically
+        { 
             bool firstToCheck = cells[i][j];
-            //Now can test this grids neighbors
+            bool topCenter;
+            bool topRight;
+            bool right;
+            bool bottomRight;
+            bool bottom;
+            bool bottomLeft;
+            bool left;
+            bool topLeft;
 
-            //bool rightNeighbor = cells[0][1];
-            //bool rightCorner = cells[1][1];
-            //bool bottomNeighbor = cells[1][0];
-            //int numNeighborsAlive = 0;
-            //List<bool> neighborsToCheck = new List<bool> { rightNeighbor, rightCorner, bottomNeighbor };
-            //for (int i = 0; i < neighborsToCheck.Count(); i++)
-            //{
-            //    if (neighborsToCheck[i])
-            //    {
-            //        numNeighborsAlive++;
-            //    }
-            //}
-            //if (numNeighborsAlive < 2)
-            //{
-            //    firstToCheck = true;
-            //} else
-            //{
-            //    firstToCheck = false;
-            //}
+            try
+            {
+                topCenter = cells[i - 1][j];
+            }
+            catch (Exception e)
+            {
+                topCenter = false;
+            }
+
+            try
+            {
+                topRight = cells[i - 1][j + 1];
+            }
+            catch (Exception e)
+            {
+                topRight = false;
+            }
+
+            try
+            {
+                right = cells[i][j + 1];
+            }
+            catch (Exception e)
+            {
+                right = false;
+            }
+
+            try
+            {
+                bottomRight = cells[i + 1][j + 1];
+            }
+            catch (Exception e)
+            {
+                bottomRight = false;
+            }
+
+            try
+            {
+                bottom = cells[i + 1][j];
+            }
+            catch (Exception e)
+            {
+                bottom = false;
+            }
+
+            try
+            {
+                bottomLeft = cells[i + 1][j - 1];
+            }
+            catch (Exception e)
+            {
+                bottomLeft = false;
+            }
+
+            try
+            {
+                left = cells[i][j - 1];
+            }
+            catch (Exception e)
+            {
+                left = false;
+            }
+
+            try
+            {
+                topLeft = cells[i - 1][j - 1];
+            }
+            catch (Exception e)
+            {
+                topLeft = false;
+            }
+
+            int numNeighborsAlive = 0;
+
+            List<bool> neighborCellList = new List<bool> { topCenter, topRight, right, bottomRight, bottom, bottomLeft, left, topLeft };
+
+            for (int k = 0; k < neighborCellList.Count(); k++ )
+            {
+                if (neighborCellList[k])
+                {
+                    numNeighborsAlive++;
+                }
+            }
+
+            if (firstToCheck)
+            {
+                if (firstToCheck == true && numNeighborsAlive < 2) //Checks for under population
+                {
+                    firstToCheck = false;
+                } else if (numNeighborsAlive == 2 || numNeighborsAlive == 3) //Checks for live on to next generation
+                {
+                    firstToCheck = true;
+                } else if (numNeighborsAlive > 3) //Checks for overpopulation
+                {
+                    firstToCheck = false;
+                }
+            } else if (numNeighborsAlive == 3)
+            {
+                firstToCheck = true;
+            }
+            
+
             return firstToCheck;
         }   
-
-        public bool caseTwo()
-        {
-            return false;
-        }
-
-        public bool caseThree()
-        {
-            return false;
-        }
-
-        public bool caseFour()
-        {
-            return true;
-        }
 
         public List<List<bool>> ToList()
         {
@@ -94,7 +166,11 @@ namespace ConwaysGameOfLife
 
         public void Tick()
         {
-           
+            while(index < 10)
+            {
+                LoopThroughCells();
+                index++;
+            }   
         }
 
     }

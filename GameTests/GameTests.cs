@@ -42,28 +42,35 @@ namespace GameTests
         public void TestingTwoOrThreeLiveNeighborsLivesOn()
         {
             myGame game = new myGame();
-            Assert.AreEqual(true, game.caseTwo());
+            Assert.AreEqual(true, game.caseOne(0, 1));
         }
 
         [TestMethod]
-        public void TestingThreeOrMoreNeighborsDies()
+        public void TestingLiveCellWithThreeOrMoreNeighborsDies()
         {
             myGame game = new myGame();
-            Assert.AreEqual(true, game.caseThree());
+            Assert.AreEqual(true, game.caseOne(1, 2));
         }
 
         [TestMethod]
-        public void TestingExactlyThreeLiveNeighborsLives()
+        public void TestingDeadCellExactlyThreeLiveNeighborsLives()
         {
             myGame game = new myGame();
-            Assert.AreEqual(false, game.caseFour());
+            Assert.AreEqual(true, game.caseOne(1, 0));
         }
 
         [TestMethod]
-        public void TestingLoopThroughCells()   
+        public void CaseOneCellTouchesTwoLiveCells()
         {
             myGame game = new myGame();
-            Assert.IsNotNull(game.LoopThroughCells());
+            Assert.AreEqual(false, game.caseOne(0,0));
+        }
+
+        [TestMethod]
+        public void LivesOnToNextGeneration()
+        {
+            myGame game = new myGame();
+            Assert.AreEqual(true, game.caseOne(1, 1));
         }
     }
 }

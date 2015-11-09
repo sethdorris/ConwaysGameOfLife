@@ -9,7 +9,7 @@ namespace ConwaysGameOfLife
    public class myGame : Board
     {
         private List<List<bool>> cells = new List<List<bool>>();
-        private int index = 10;
+        private int index = 0;
 
         public myGame()
         {
@@ -33,13 +33,18 @@ namespace ConwaysGameOfLife
 
         public void LoopThroughCells()
         {
+            List<List<bool>> newCells = new List<List<bool>>(); 
             for (int i = 0; i < cells.Count(); i++)
             {
-                for (int j = 0; i < cells[i].Count(); j++)
+                List<bool> newRow = new List<bool>();
+
+                for (int j = 0; j < cells[i].Count(); j++)
                 {
-                    cells[i][j] = caseOne(i, j);
+                    newRow.Add(caseOne(i, j));
                 }
+                newCells.Add(newRow);
             }
+            cells = newCells;
         }
 
         public bool caseOne(int i, int j)
@@ -150,7 +155,7 @@ namespace ConwaysGameOfLife
                 {
                     firstToCheck = false;
                 }
-            } else if (numNeighborsAlive == 3)
+            } else if (!firstToCheck && numNeighborsAlive == 3)
             {
                 firstToCheck = true;
             }
@@ -166,11 +171,7 @@ namespace ConwaysGameOfLife
 
         public void Tick()
         {
-            while(index < 10)
-            {
-                LoopThroughCells();
-                index++;
-            }   
+            LoopThroughCells();
         }
 
     }
